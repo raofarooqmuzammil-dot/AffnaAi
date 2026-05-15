@@ -2,8 +2,9 @@ import Link from "next/link";
 import FAQAccordion from "@/components/FAQAccordion";
 
 export const metadata = {
-  title: "FAQ — Affnaai",
+  title: "FAQ",
   description: "Answers to common questions about Affnaai's AI receptionist.",
+  alternates: { canonical: "/faq" },
 };
 
 const faqs = [
@@ -29,7 +30,7 @@ const faqs = [
   },
   {
     q: "How long does setup take?",
-    a: "Most businesses go live in 7 days. Day 1 is a 20-minute discovery call. Days 2–5 we train and build. Days 5–6 we integrate your channels. Day 7 you go live. We tune in real-time for the first two weeks.",
+    a: "Most businesses go live in 7 days. Day 1 is a 20-minute discovery call. Days 2-5 we train and build. Days 5-6 we integrate your channels. Day 7 you go live. We tune in real-time for the first two weeks.",
   },
   {
     q: "How do I cancel?",
@@ -45,7 +46,7 @@ const faqs = [
   },
   {
     q: "How does Affnaai compare to hiring a receptionist?",
-    a: "A full-time receptionist costs ~$3,000–$4,500/mo and covers ~40 hours per week. Affnaai costs $149–$997/mo, covers 24/7, handles every channel (not just phone), and never has a bad day. It won't replace humans for high-trust conversations — but for routine bookings, FAQ, and after-hours coverage, it's far cheaper and more available.",
+    a: "A full-time receptionist costs ~$3,000-$4,500/mo and covers ~40 hours per week. Affnaai costs $149-$997/mo, covers 24/7, handles every channel (not just phone), and never has a bad day. It won't replace humans for high-trust conversations — but for routine bookings, FAQ, and after-hours coverage, it's far cheaper and more available.",
   },
   {
     q: "Can I see a live AI conversation before signing up?",
@@ -57,9 +58,26 @@ const faqs = [
   },
 ];
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: f.a,
+    },
+  })),
+};
+
 export default function FAQPage() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+      />
       <section className="relative overflow-hidden pt-32 pb-12 lg:pt-40">
         <div className="absolute inset-0 grid-bg pointer-events-none opacity-50" />
         <div className="absolute inset-0 radial-fade-top pointer-events-none" />
