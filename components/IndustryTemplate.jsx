@@ -2,14 +2,81 @@ import Link from "next/link";
 import { getIndustry, industries } from "@/lib/industries";
 import ChatDemo from "@/components/ChatDemo";
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://affnaai.com";
+
 export default function IndustryTemplate({ slug }) {
   const data = getIndustry(slug);
   if (!data) return null;
 
   const otherIndustries = industries.filter((i) => i.slug !== slug);
 
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType: `AI Receptionist for ${data.name}`,
+    name: `Affnaai ${data.name}`,
+    description: data.solution,
+    provider: {
+      "@type": "Organization",
+      name: "Affnaai",
+      url: SITE_URL,
+    },
+    areaServed: {
+      "@type": "Place",
+      name: "Global",
+    },
+    audience: {
+      "@type": "BusinessAudience",
+      audienceType: data.name,
+    },
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "USD",
+      price: "149",
+      priceSpecification: {
+        "@type": "UnitPriceSpecification",
+        priceType: "https://schema.org/MinimumAdvertisedPrice",
+      },
+      url: `${SITE_URL}/pricing`,
+    },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: SITE_URL,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Industries",
+        item: `${SITE_URL}/industries`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: data.name,
+        item: `${SITE_URL}/industries/${data.slug}`,
+      },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       {/* Hero */}
       <section className="relative overflow-hidden pt-32 pb-16 lg:pt-40 lg:pb-24">
         <div className="absolute inset-0 grid-bg pointer-events-none opacity-50" />
@@ -111,10 +178,7 @@ export default function IndustryTemplate({ slug }) {
             </div>
             <div className="mt-10 space-y-3">
               {data.samplePrompts.map((p, i) => (
-                <div
-                  key={p}
-                  className="card flex items-start gap-4 p-5"
-                >
+                <div key={p} className="card flex items-start gap-4 p-5">
                   <span className="font-mono text-xs text-ink-dim">0{i + 1}</span>
                   <p className="text-pretty text-ink">"{p}"</p>
                 </div>
