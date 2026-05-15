@@ -47,20 +47,6 @@ export default function DemoPage() {
                 Sparkle Pro. Ask anything — quotes, scheduling, what services
                 they offer.
               </p>
-              <div className="mt-6 space-y-2 font-mono text-xs text-ink-dim">
-                <div className="flex items-center gap-2">
-                  <span className="inline-block h-1 w-1 rounded-full bg-cyan-glow" />
-                  Model: Claude Haiku 4.5
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="inline-block h-1 w-1 rounded-full bg-cyan-glow" />
-                  Avg latency: ~700ms
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="inline-block h-1 w-1 rounded-full bg-cyan-glow" />
-                  Cost per conversation: &lt;$0.01
-                </div>
-              </div>
             </div>
             <div className="lg:col-span-3">
               <ChatDemo />
