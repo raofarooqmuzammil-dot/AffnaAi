@@ -2,55 +2,83 @@
 
 import { useEffect, useRef, useState } from "react";
 
-// Voice call transcript — drafted script for the user to re-record later with ElevenLabs or their own voice
 const TRANSCRIPT = [
-  { speaker: "system", line: "Incoming call · +1 (415) 555-2271", t: 0 },
-  { speaker: "ai", line: "Sparkle Pro Cleaning, this is Mia — how can I help?", t: 1.2 },
-  { speaker: "caller", line: "Hi, uh, my fridge just broke and there's water all over the kitchen floor. Can someone come help today?", t: 4.5 },
-  { speaker: "ai", line: "Oh no, that's the worst. We can absolutely get someone out today. Can I grab your address?", t: 9.0 },
-  { speaker: "caller", line: "It's 2840 Marigold Avenue, apartment 4.", t: 13.2 },
-  { speaker: "ai", line: "Got it. I have a team that can be there in about 90 minutes. The visit is $145 for the first hour and $60 each additional. Want me to lock that in?", t: 16.5 },
-  { speaker: "caller", line: "Yes please, that would be amazing.", t: 22.0 },
-  { speaker: "ai", line: "Done. Marco's en route — you'll get a text in about 75 minutes when he's 15 out. Anything else I can help with?", t: 24.5 },
-  { speaker: "caller", line: "No that's it, thank you so much!", t: 30.0 },
-  { speaker: "ai", line: "You got it. Hang tight — help's on the way.", t: 32.5 },
-  { speaker: "system", line: "Call ended · 0:34 · Booked: Emergency Visit · Marco K.", t: 35.0 },
+  { speaker: "system", line: "Incoming call · +1 (415) 555-2271" },
+  { speaker: "ai", line: "Sparkle Pro Cleaning, this is Mia — how can I help?" },
+  { speaker: "caller", line: "Hi, my fridge just broke and there's water all over the kitchen floor. Can someone come help today?" },
+  { speaker: "ai", line: "Oh no, that's the worst. We can absolutely get someone out today. Can I grab your address?" },
+  { speaker: "caller", line: "It's 2840 Marigold Avenue, apartment 4, in Austin, Texas." },
+  { speaker: "ai", line: "Got it. I have a team that can be there in about 90 minutes. The visit is 145 dollars for the first hour and 60 each additional. Want me to lock that in?" },
+  { speaker: "caller", line: "Yes please, that would be amazing." },
+  { speaker: "ai", line: "Done. Marco's on his way — you'll get a text in about 75 minutes when he's 15 out. Anything else I can help with?" },
+  { speaker: "caller", line: "No that's it, thank you so much!" },
+  { speaker: "ai", line: "You got it. Hang tight — help's on the way." },
+  { speaker: "system", line: "Call ended · Booked: Emergency Visit · Marco K." },
 ];
-
-const TOTAL_DURATION = 36;
 
 export default function VoiceDemo() {
   const [playing, setPlaying] = useState(false);
-  const [elapsed, setElapsed] = useState(0);
   const [visibleIdx, setVisibleIdx] = useState(0);
-  const rafRef = useRef(null);
-  const startRef = useRef(0);
+  const [voices, setVoices] = useState({ ai: null, caller: null });
+  const [speechSupported, setSpeechSupported] = useState(true);
   const scrollRef = useRef(null);
+  const currentIdxRef = useRef(0);
+  const cancelledRef = useRef(false);
 
+  // Load voices once available
   useEffect(() => {
-    if (!playing) return;
-    startRef.current = performance.now() - elapsed * 1000;
-    const tick = (now) => {
-      const t = (now - startRef.current) / 1000;
-      setElapsed(t);
-      if (t >= TOTAL_DURATION) {
-        setPlaying(false);
-        return;
-      }
-      rafRef.current = requestAnimationFrame(tick);
+    if (typeof window === "undefined" || !window.speechSynthesis) {
+      setSpeechSupported(false);
+      return;
+    }
+
+    const loadVoices = () => {
+      const all = window.speechSynthesis.getVoices();
+      if (all.length === 0) return;
+
+      // Prefer high-quality English voices
+      const englishVoices = all.filter((v) => v.lang.startsWith("en"));
+
+      const findBest = (preferences) => {
+        for (const pref of preferences) {
+          const match = englishVoices.find((v) =>
+            v.name.toLowerCase().includes(pref.toLowerCase())
+          );
+          if (match) return match;
+        }
+        return englishVoices[0] || all[0];
+      };
+
+      // Female-sounding voice for Mia (the AI)
+      const aiVoice = findBest([
+        "Samantha", "Google US English", "Microsoft Aria", "Microsoft Jenny",
+        "Karen", "Moira", "Tessa", "Female", "en-US",
+      ]);
+
+      // Different voice for the caller
+      const callerVoice =
+        englishVoices.find(
+          (v) =>
+            v !== aiVoice &&
+            (v.name.toLowerCase().includes("daniel") ||
+              v.name.toLowerCase().includes("male") ||
+              v.name.toLowerCase().includes("alex") ||
+              v.name.toLowerCase().includes("microsoft david") ||
+              v.name.toLowerCase().includes("google uk english male"))
+        ) ||
+        englishVoices.find((v) => v !== aiVoice) ||
+        aiVoice;
+
+      setVoices({ ai: aiVoice, caller: callerVoice });
     };
-    rafRef.current = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(rafRef.current);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [playing]);
 
-  useEffect(() => {
-    const idx = TRANSCRIPT.findIndex((l, i) => {
-      const next = TRANSCRIPT[i + 1];
-      return elapsed >= l.t && (!next || elapsed < next.t);
-    });
-    if (idx !== -1) setVisibleIdx(idx + 1);
-  }, [elapsed]);
+    loadVoices();
+    window.speechSynthesis.addEventListener("voiceschanged", loadVoices);
+    return () => {
+      window.speechSynthesis.removeEventListener("voiceschanged", loadVoices);
+      window.speechSynthesis.cancel();
+    };
+  }, []);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -58,19 +86,89 @@ export default function VoiceDemo() {
     }
   }, [visibleIdx]);
 
-  const toggle = () => {
-    if (elapsed >= TOTAL_DURATION) {
-      setElapsed(0);
-      setVisibleIdx(0);
+  const speakLine = (idx) => {
+    if (cancelledRef.current || idx >= TRANSCRIPT.length) {
+      setPlaying(false);
+      return;
     }
-    setPlaying((p) => !p);
+
+    setVisibleIdx(idx + 1);
+    currentIdxRef.current = idx;
+    const line = TRANSCRIPT[idx];
+
+    // System lines: brief pause, no speech
+    if (line.speaker === "system") {
+      setTimeout(() => {
+        if (!cancelledRef.current) speakLine(idx + 1);
+      }, 600);
+      return;
+    }
+
+    if (!window.speechSynthesis) return;
+
+    const utterance = new SpeechSynthesisUtterance(line.line);
+    const isAi = line.speaker === "ai";
+
+    if (isAi && voices.ai) {
+      utterance.voice = voices.ai;
+      utterance.pitch = 1.05;
+      utterance.rate = 1.02;
+    } else if (!isAi && voices.caller) {
+      utterance.voice = voices.caller;
+      utterance.pitch = 0.95;
+      utterance.rate = 1.0;
+    }
+
+    utterance.onend = () => {
+      if (!cancelledRef.current) {
+        // Brief gap between speakers
+        setTimeout(() => speakLine(idx + 1), 350);
+      }
+    };
+
+    utterance.onerror = () => {
+      if (!cancelledRef.current) speakLine(idx + 1);
+    };
+
+    window.speechSynthesis.speak(utterance);
+  };
+
+  const play = () => {
+    if (!speechSupported) return;
+    cancelledRef.current = false;
+
+    // If we already finished, reset
+    if (visibleIdx >= TRANSCRIPT.length) {
+      setVisibleIdx(0);
+      currentIdxRef.current = 0;
+      setTimeout(() => {
+        setPlaying(true);
+        speakLine(0);
+      }, 100);
+      return;
+    }
+
+    setPlaying(true);
+    // Resume from where we left off
+    const startIdx = currentIdxRef.current || 0;
+    speakLine(startIdx);
+  };
+
+  const pause = () => {
+    cancelledRef.current = true;
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    setPlaying(false);
   };
 
   const reset = () => {
+    cancelledRef.current = true;
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
     setPlaying(false);
-    setElapsed(0);
     setVisibleIdx(0);
+    currentIdxRef.current = 0;
   };
+
+  const progress = TRANSCRIPT.length ? visibleIdx / TRANSCRIPT.length : 0;
 
   return (
     <div className="card overflow-hidden">
@@ -99,10 +197,10 @@ export default function VoiceDemo() {
 
       {/* Waveform */}
       <div className="border-b border-bg-border bg-bg-base/50 px-5 py-4">
-        <Waveform playing={playing} progress={elapsed / TOTAL_DURATION} />
+        <Waveform playing={playing} progress={progress} />
         <div className="mt-2 flex items-center justify-between font-mono text-[10px] text-ink-dim">
-          <span>{formatTime(elapsed)}</span>
-          <span>{formatTime(TOTAL_DURATION)}</span>
+          <span>{playing ? "● LIVE" : "READY"}</span>
+          <span>{visibleIdx}/{TRANSCRIPT.length}</span>
         </div>
       </div>
 
@@ -114,7 +212,9 @@ export default function VoiceDemo() {
         {visibleIdx === 0 && (
           <div className="flex h-full flex-col items-center justify-center text-center">
             <p className="font-mono text-xs uppercase tracking-widest text-ink-dim">
-              Press play to start the call
+              {speechSupported
+                ? "Press play to start the call"
+                : "Voice not supported in this browser"}
             </p>
           </div>
         )}
@@ -129,8 +229,9 @@ export default function VoiceDemo() {
           ↺ Reset
         </button>
         <button
-          onClick={toggle}
-          className="btn-primary text-xs"
+          onClick={playing ? pause : play}
+          disabled={!speechSupported}
+          className="btn-primary text-xs disabled:opacity-40"
           aria-label={playing ? "Pause" : "Play"}
         >
           {playing ? (
@@ -146,17 +247,22 @@ export default function VoiceDemo() {
               <svg width="10" height="10" viewBox="0 0 10 10" fill="currentColor">
                 <path d="M2 1l7 4-7 4z" />
               </svg>
-              {elapsed >= TOTAL_DURATION ? "Replay" : elapsed > 0 ? "Resume" : "Play call"}
+              {visibleIdx >= TRANSCRIPT.length ? "Replay" : visibleIdx > 0 ? "Resume" : "Play call"}
             </>
           )}
         </button>
       </div>
+
+      {!speechSupported && (
+        <div className="border-t border-bg-border bg-warn/5 px-5 py-2 font-mono text-[10px] text-warn">
+          Your browser doesn't support speech synthesis. Try Chrome, Safari, or Edge.
+        </div>
+      )}
     </div>
   );
 }
 
 function Waveform({ playing, progress }) {
-  // Deterministic pseudo-random heights for the waveform bars
   const bars = Array.from({ length: 60 }, (_, i) => {
     const seed = Math.sin(i * 12.9898) * 43758.5453;
     return 0.3 + Math.abs(seed - Math.floor(seed)) * 0.7;
@@ -168,12 +274,13 @@ function Waveform({ playing, progress }) {
         return (
           <div
             key={i}
-            className={`flex-1 rounded-full transition-all duration-150 ${
+            className={`flex-1 rounded-full transition-all ${
               isActive ? "bg-cyan-glow" : "bg-bg-borderHi"
-            } ${playing && isActive && i / bars.length > progress - 0.05 ? "h-full" : ""}`}
+            } ${playing ? "animate-pulse-dot" : ""}`}
             style={{
               height: `${h * 100}%`,
               opacity: isActive ? 1 : 0.5,
+              animationDelay: `${(i % 8) * 50}ms`,
             }}
           />
         );
@@ -215,10 +322,4 @@ function TranscriptLine({ speaker, line }) {
       </div>
     </div>
   );
-}
-
-function formatTime(s) {
-  const m = Math.floor(s / 60);
-  const sec = Math.floor(s % 60);
-  return `${m}:${sec.toString().padStart(2, "0")}`;
 }
