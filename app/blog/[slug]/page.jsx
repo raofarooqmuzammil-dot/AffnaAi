@@ -10,8 +10,9 @@ export function generateMetadata({ params }) {
   const post = getPost(params.slug);
   if (!post) return { title: "Post not found" };
   return {
-    title: `${post.title} — Affnaai Blog`,
+    title: post.metaTitle || post.title,
     description: post.excerpt,
+    alternates: { canonical: `/blog/${post.slug}` },
   };
 }
 
@@ -119,7 +120,6 @@ export default function BlogPost({ params }) {
 }
 
 function renderContent(md) {
-  // Minimal markdown-ish renderer for the inline blog content (no MDX dependency)
   const lines = md.trim().split("\n");
   const blocks = [];
   let listBuf = [];
