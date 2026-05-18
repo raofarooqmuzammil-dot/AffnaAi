@@ -101,18 +101,11 @@ export default function PricingCards() {
     <div className="space-y-12">
       {/* Free trial banner */}
       <div className="card relative overflow-hidden border-cyan-glow/30 bg-gradient-to-br from-cyan-glow/[0.04] to-transparent p-6 lg:p-8">
-        <div className="absolute inset-0 grid-bg-fine pointer-events-none opacity-30" />
         <div className="relative grid items-center gap-6 lg:grid-cols-[1fr_auto]">
           <div>
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="chip-glow">
-                <span className="inline-block h-1.5 w-1.5 animate-pulse-dot rounded-full bg-cyan-glow" />
-                FREE TRIAL
-              </span>
-              <span className="font-mono text-[10px] uppercase tracking-widest text-ink-dim">
-                No credit card required
-              </span>
-            </div>
+            <span className="inline-block rounded-full border border-cyan-glow/30 bg-cyan-glow/5 px-3 py-1 text-xs text-cyan-glow">
+              Free trial — no credit card
+            </span>
             <h3 className="mt-4 font-display text-2xl text-balance text-ink lg:text-3xl">
               Try the AI chat widget free for{" "}
               <span className="text-gradient-cyan">7 days.</span>
@@ -131,9 +124,7 @@ export default function PricingCards() {
               Start free trial
               <Arrow />
             </Link>
-            <span className="font-mono text-[10px] uppercase tracking-widest text-ink-dim">
-              5-minute setup
-            </span>
+            <span className="text-xs text-ink-dim">5-minute setup</span>
           </div>
         </div>
       </div>
@@ -144,17 +135,15 @@ export default function PricingCards() {
         ))}
       </div>
 
-      <p className="text-center font-mono text-[10px] uppercase tracking-widest text-ink-dim">
-        All prices in USD · Cancel anytime · Setup fees are one-time
+      <p className="text-center text-sm text-ink-muted">
+        All prices in USD. Cancel anytime. Setup fees are one-time.
       </p>
 
       {/* Add-ons */}
       <div className="card p-7">
         <div className="mb-5 flex items-baseline justify-between">
           <h3 className="font-display text-xl text-ink">Add-ons & usage</h3>
-          <span className="font-mono text-[10px] uppercase tracking-widest text-ink-dim">
-            Optional
-          </span>
+          <span className="text-xs text-ink-dim">Optional</span>
         </div>
         <div className="grid gap-3 sm:grid-cols-2">
           {addOns.map((a) => (
@@ -163,7 +152,7 @@ export default function PricingCards() {
               className="flex items-baseline justify-between border-b border-bg-border pb-3 last:border-0"
             >
               <span className="text-sm text-ink">{a.name}</span>
-              <span className="font-mono text-xs text-cyan-glow">{a.price}</span>
+              <span className="text-sm text-cyan-glow">{a.price}</span>
             </div>
           ))}
         </div>
@@ -176,7 +165,9 @@ export default function PricingCards() {
           className="flex w-full items-center justify-between p-6 text-left transition-colors hover:bg-bg-elevated/40"
         >
           <div className="flex items-center gap-3">
-            <span className="chip-glow">FOUNDING 10</span>
+            <span className="rounded-full border border-cyan-glow/30 bg-cyan-glow/5 px-3 py-1 text-xs text-cyan-glow">
+              Founding 10
+            </span>
             <span className="text-sm text-ink">
               Growth-tier features at Plus pricing
             </span>
@@ -203,19 +194,19 @@ export default function PricingCards() {
           <div className="animate-fade-up border-t border-bg-border p-6">
             <div className="grid gap-6 lg:grid-cols-2">
               <div>
-                <div className="font-mono text-[10px] uppercase tracking-widest text-cyan-glow">
-                  Founding 10 · Locked 12 months
-                </div>
+                <p className="text-sm text-cyan-glow">
+                  Locked 12 months
+                </p>
                 <div className="mt-2 flex items-baseline gap-2">
                   <span className="font-display text-4xl text-ink">$249</span>
                   <span className="text-ink-muted">/mo</span>
-                  <span className="ml-2 font-mono text-xs text-ink-dim line-through">
+                  <span className="ml-2 text-sm text-ink-dim line-through">
                     $397
                   </span>
                 </div>
                 <div className="mt-1 text-sm text-ink-muted">
                   + $299 setup{" "}
-                  <span className="font-mono text-xs text-ink-dim line-through">
+                  <span className="text-xs text-ink-dim line-through">
                     ($499)
                   </span>
                 </div>
@@ -227,9 +218,7 @@ export default function PricingCards() {
                 </p>
               </div>
               <div>
-                <div className="font-mono text-[10px] uppercase tracking-widest text-ink-dim">
-                  What's included
-                </div>
+                <p className="text-sm text-ink-muted">What's included</p>
                 <ul className="mt-3 space-y-2 text-sm text-ink">
                   {[
                     "Everything in Growth",
@@ -273,7 +262,9 @@ function Tier({ tier }) {
       }`}
     >
       {tier.highlight && (
-        <span className="absolute -top-3 left-6 chip-glow">MOST POPULAR</span>
+        <span className="absolute -top-3 left-6 rounded-full border border-cyan-glow/30 bg-bg-elevated px-3 py-1 text-xs text-cyan-glow">
+          Most popular
+        </span>
       )}
       <div>
         <h3 className="font-display text-2xl text-ink">{tier.name}</h3>
@@ -287,7 +278,7 @@ function Tier({ tier }) {
             <span className="text-ink-muted">{tier.period}</span>
           )}
         </div>
-        <div className="mt-3 font-mono text-[11px] text-ink-dim">
+        <div className="mt-2 text-sm text-ink-dim">
           Setup: <span className="text-ink-muted">{tier.setup}</span>
         </div>
       </div>
@@ -303,12 +294,8 @@ function Tier({ tier }) {
 
       {tier.overage && (
         <div className="mt-5 rounded-lg border border-bg-border bg-bg-base/40 p-3">
-          <div className="font-mono text-[9px] uppercase tracking-widest text-ink-dim">
-            Overage
-          </div>
-          <div className="mt-1 font-mono text-[11px] text-cyan-glow">
-            {tier.overage}
-          </div>
+          <div className="text-xs text-ink-dim">Overage</div>
+          <div className="mt-1 text-xs text-cyan-glow">{tier.overage}</div>
         </div>
       )}
 
