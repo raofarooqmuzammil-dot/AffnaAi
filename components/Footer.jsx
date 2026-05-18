@@ -61,9 +61,7 @@ export default function Footer() {
 
           {columns.map((col) => (
             <div key={col.title}>
-              <h4 className="mb-4 text-sm font-medium text-ink">
-                {col.title}
-              </h4>
+              <h4 className="mb-4 text-sm font-medium text-ink">{col.title}</h4>
               <ul className="flex flex-col gap-3">
                 {col.links.map((link) => (
                   <li key={link.href}>
@@ -85,11 +83,14 @@ export default function Footer() {
             © {year} Affnaai. All rights reserved.
           </p>
           <div className="flex items-center gap-6 text-xs text-ink-dim">
-            <Link href="/contact" className="hover:text-ink-muted">
-              Privacy
+            <Link href="/privacy" className="hover:text-ink-muted transition-colors">
+              Privacy Policy
             </Link>
-            <Link href="/contact" className="hover:text-ink-muted">
-              Terms
+            <Link href="/terms" className="hover:text-ink-muted transition-colors">
+              Terms of Service
+            </Link>
+            <Link href="/refunds" className="hover:text-ink-muted transition-colors">
+              Refunds
             </Link>
           </div>
         </div>
