@@ -1,8 +1,9 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "How it works — Affnaai",
+  title: "How it works",
   description: "From sign-up to going live in 7 days. Here's exactly what happens.",
+  alternates: { canonical: "/how-it-works" },
 };
 
 const steps = [
@@ -40,8 +41,7 @@ export default function HowItWorksPage() {
         <div className="absolute inset-0 radial-fade-top pointer-events-none" />
         <div className="container-x relative">
           <div className="mx-auto max-w-3xl text-center">
-            <span className="chip-glow">[ HOW IT WORKS ]</span>
-            <h1 className="mt-5 font-display text-balance text-5xl text-ink lg:text-6xl">
+            <h1 className="font-display text-balance text-5xl text-ink lg:text-6xl">
               From signup to live in <span className="text-gradient-cyan">7 days.</span>
             </h1>
             <p className="mt-5 text-pretty text-lg text-ink-muted">
@@ -56,17 +56,17 @@ export default function HowItWorksPage() {
         <div className="container-x">
           <div className="mx-auto max-w-4xl">
             <ol className="relative space-y-5 before:absolute before:left-7 before:top-8 before:bottom-8 before:w-px before:bg-bg-border lg:before:left-10">
-              {steps.map((s, i) => (
+              {steps.map((s) => (
                 <li key={s.n} className="relative">
                   <div className="card relative p-6 pl-20 lg:pl-28">
-                    <div className="absolute left-3 top-6 flex h-10 w-10 items-center justify-center rounded-full border border-cyan-glow/30 bg-bg-base font-mono text-xs text-cyan-glow lg:left-5 lg:h-12 lg:w-12">
+                    <div className="absolute left-3 top-6 flex h-10 w-10 items-center justify-center rounded-full border border-cyan-glow/30 bg-bg-base text-xs text-cyan-glow lg:left-5 lg:h-12 lg:w-12">
                       {s.n}
                     </div>
                     <div className="flex flex-col items-start justify-between gap-2 sm:flex-row sm:items-center">
                       <h2 className="font-display text-2xl text-ink lg:text-3xl">
                         {s.title}
                       </h2>
-                      <span className="chip">{s.duration}</span>
+                      <span className="text-sm text-cyan-glow">{s.duration}</span>
                     </div>
                     <p className="mt-3 text-pretty text-ink-muted">{s.desc}</p>
                   </div>
@@ -81,8 +81,7 @@ export default function HowItWorksPage() {
         <div className="container-x">
           <div className="mx-auto max-w-4xl">
             <div className="text-center">
-              <span className="chip">[ THE PROMISES ]</span>
-              <h2 className="mt-5 font-display text-4xl text-balance text-ink lg:text-5xl">
+              <h2 className="font-display text-4xl text-balance text-ink lg:text-5xl">
                 Things we won't make you do.
               </h2>
             </div>
