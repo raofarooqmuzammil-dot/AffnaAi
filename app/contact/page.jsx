@@ -124,12 +124,18 @@ export default function ContactPage() {
             </div>
 
             {/* Alternate paths */}
-            <div className="mt-10 grid gap-4 sm:grid-cols-2">
+            <div className="mt-10 grid gap-4 sm:grid-cols-3">
               <ContactBox
                 title="Prefer WhatsApp?"
                 desc="Message us directly — we usually reply within minutes."
                 cta="Open WhatsApp"
                 href="https://wa.me/923334985948"
+              />
+              <ContactBox
+                title="Send an email"
+                desc="Reach us at ai@affnaai.com — we reply within 1 business day."
+                cta="ai@affnaai.com"
+                href="mailto:ai@affnaai.com"
               />
               <ContactBox
                 title="Not ready for a call?"
