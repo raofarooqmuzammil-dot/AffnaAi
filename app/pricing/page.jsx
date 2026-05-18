@@ -2,8 +2,9 @@ import PricingCards from "@/components/PricingCards";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Pricing — Affnaai",
-  description: "Three plans for service businesses. Starter, Growth, and Pro.",
+  title: "Pricing",
+  description: "Three plans for service businesses. Starter, Plus, Growth, and Pro.",
+  alternates: { canonical: "/pricing" },
 };
 
 export default function PricingPage() {
@@ -14,13 +15,12 @@ export default function PricingPage() {
         <div className="absolute inset-0 radial-fade-top pointer-events-none" />
         <div className="container-x relative">
           <div className="mx-auto max-w-3xl text-center">
-            <span className="chip">[ PRICING ]</span>
-            <h1 className="mt-5 font-display text-balance text-5xl text-ink lg:text-6xl">
+            <h1 className="font-display text-balance text-5xl text-ink lg:text-6xl">
               Pay less than a single receptionist shift.
             </h1>
             <p className="mt-5 text-pretty text-lg text-ink-muted">
               All plans include setup, training on your business, and ongoing
-              tuning. Cancel anytime. Prices in USD.
+              tuning. Cancel anytime.
             </p>
           </div>
         </div>
