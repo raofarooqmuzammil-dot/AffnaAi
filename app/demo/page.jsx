@@ -5,8 +5,9 @@ import ROICalculator from "@/components/ROICalculator";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Live Demo — Affnaai",
+  title: "Live Demo",
   description: "Try the AI receptionist live. Web chat, WhatsApp, voice, and ROI calculator.",
+  alternates: { canonical: "/demo" },
 };
 
 export default function DemoPage() {
@@ -17,8 +18,7 @@ export default function DemoPage() {
         <div className="absolute inset-0 radial-fade-top pointer-events-none" />
         <div className="container-x relative">
           <div className="mx-auto max-w-3xl text-center">
-            <span className="chip-glow">[ DEMO PLAYGROUND ]</span>
-            <h1 className="mt-5 font-display text-balance text-5xl text-ink lg:text-6xl">
+            <h1 className="font-display text-balance text-5xl text-ink lg:text-6xl">
               Try Affnaai before you buy it.
             </h1>
             <p className="mt-5 text-pretty text-lg text-ink-muted">
@@ -30,15 +30,13 @@ export default function DemoPage() {
         </div>
       </section>
 
-      {/* Live chat demo */}
       <section id="chat" className="scroll-mt-24 py-16">
         <div className="container-x">
           <div className="mx-auto grid max-w-6xl items-start gap-10 lg:grid-cols-5">
             <div className="lg:col-span-2 lg:sticky lg:top-28">
-              <span className="chip-glow">01 · LIVE AI</span>
-              <h2 className="mt-4 font-display text-3xl text-ink lg:text-4xl">
-                Web chat
-                <br />
+              <span className="text-sm text-cyan-glow">Live AI</span>
+              <h2 className="mt-2 font-display text-3xl text-ink lg:text-4xl">
+                Web chat <br />
                 <span className="text-ink-muted">powered by Claude.</span>
               </h2>
               <p className="mt-4 text-pretty text-ink-muted">
@@ -47,6 +45,11 @@ export default function DemoPage() {
                 Sparkle Pro. Ask anything — quotes, scheduling, what services
                 they offer.
               </p>
+              <ul className="mt-6 space-y-2 text-sm text-ink-dim">
+                <li>· Model: Claude Haiku 4.5</li>
+                <li>· Average latency: ~700ms</li>
+                <li>· Cost per conversation: under $0.01</li>
+              </ul>
             </div>
             <div className="lg:col-span-3">
               <ChatDemo />
@@ -57,13 +60,12 @@ export default function DemoPage() {
 
       <Divider />
 
-      {/* WhatsApp demo */}
       <section id="whatsapp" className="scroll-mt-24 py-16">
         <div className="container-x">
           <div className="mx-auto grid max-w-6xl items-start gap-10 lg:grid-cols-5">
             <div className="lg:col-span-2 lg:sticky lg:top-28 lg:order-2">
-              <span className="chip">02 · WHATSAPP</span>
-              <h2 className="mt-4 font-display text-3xl text-ink lg:text-4xl">
+              <span className="text-sm text-cyan-glow">WhatsApp</span>
+              <h2 className="mt-2 font-display text-3xl text-ink lg:text-4xl">
                 A booking, <br />
                 <span className="text-ink-muted">from cold DM to confirmed.</span>
               </h2>
@@ -71,7 +73,7 @@ export default function DemoPage() {
                 Watch a real customer message come in on WhatsApp and end with a
                 confirmed weekly cleaning booking — no human involved.
               </p>
-              <p className="mt-4 font-mono text-xs text-ink-dim">
+              <p className="mt-4 text-sm text-ink-dim">
                 Simulated for demo purposes. The deployed product runs through
                 official WhatsApp Business API.
               </p>
@@ -85,13 +87,12 @@ export default function DemoPage() {
 
       <Divider />
 
-      {/* Voice demo */}
       <section id="voice" className="scroll-mt-24 py-16">
         <div className="container-x">
           <div className="mx-auto grid max-w-6xl items-start gap-10 lg:grid-cols-5">
             <div className="lg:col-span-2 lg:sticky lg:top-28">
-              <span className="chip">03 · VOICE</span>
-              <h2 className="mt-4 font-display text-3xl text-ink lg:text-4xl">
+              <span className="text-sm text-cyan-glow">Voice</span>
+              <h2 className="mt-2 font-display text-3xl text-ink lg:text-4xl">
                 An emergency call, <br />
                 <span className="text-ink-muted">handled in 34 seconds.</span>
               </h2>
@@ -99,10 +100,6 @@ export default function DemoPage() {
                 A panicked customer with a flooded kitchen. The AI receptionist
                 triages, prices the visit, and dispatches a technician — without
                 anyone touching the phone.
-              </p>
-              <p className="mt-4 font-mono text-xs text-ink-dim">
-                Transcript shown synchronously. Voice audio is in production —
-                contact us to hear it live.
               </p>
             </div>
             <div className="lg:col-span-3">
@@ -114,13 +111,11 @@ export default function DemoPage() {
 
       <Divider />
 
-      {/* ROI Calculator */}
       <section id="roi" className="scroll-mt-24 py-16 lg:py-24">
         <div className="container-x">
           <div className="mx-auto max-w-5xl">
             <div className="mb-10 text-center">
-              <span className="chip-glow">04 · THE NUMBERS</span>
-              <h2 className="mt-4 font-display text-4xl text-balance text-ink lg:text-5xl">
+              <h2 className="font-display text-4xl text-balance text-ink lg:text-5xl">
                 What is this costing your business right now?
               </h2>
             </div>
@@ -129,7 +124,6 @@ export default function DemoPage() {
         </div>
       </section>
 
-      {/* CTA */}
       <section className="relative overflow-hidden border-t border-bg-border py-24">
         <div className="absolute inset-0 radial-fade-bottom pointer-events-none" />
         <div className="container-x relative text-center">
@@ -156,7 +150,7 @@ export default function DemoPage() {
 function Divider() {
   return (
     <div className="container-x">
-      <div className="mx-auto h-px max-w-6xl divider-glow opacity-50" />
+      <div className="mx-auto h-px max-w-6xl bg-bg-border" />
     </div>
   );
 }
