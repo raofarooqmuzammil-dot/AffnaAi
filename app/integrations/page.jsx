@@ -2,8 +2,9 @@ import Link from "next/link";
 import IntegrationsGrid from "@/components/IntegrationsGrid";
 
 export const metadata = {
-  title: "Integrations — Affnaai",
+  title: "Integrations",
   description: "Affnaai plugs into WhatsApp, Calendar, CRM, payments, and more.",
+  alternates: { canonical: "/integrations" },
 };
 
 export default function IntegrationsPage() {
@@ -14,8 +15,7 @@ export default function IntegrationsPage() {
         <div className="absolute inset-0 radial-fade-top pointer-events-none" />
         <div className="container-x relative">
           <div className="mx-auto max-w-3xl text-center">
-            <span className="chip">[ INTEGRATIONS ]</span>
-            <h1 className="mt-5 font-display text-balance text-5xl text-ink lg:text-6xl">
+            <h1 className="font-display text-balance text-5xl text-ink lg:text-6xl">
               Slots into the tools <br />
               <span className="text-ink-muted">you already use.</span>
             </h1>
@@ -78,12 +78,10 @@ export default function IntegrationsPage() {
 function CategoryCard({ title, items }) {
   return (
     <div className="card p-6">
-      <div className="font-mono text-[10px] uppercase tracking-widest text-cyan-glow">
-        {title}
-      </div>
+      <h3 className="font-display text-lg text-ink">{title}</h3>
       <ul className="mt-4 space-y-2">
         {items.map((i) => (
-          <li key={i} className="flex items-center gap-2 text-sm text-ink">
+          <li key={i} className="flex items-center gap-2 text-sm text-ink-muted">
             <span className="inline-block h-1 w-1 rounded-full bg-cyan-glow" />
             {i}
           </li>
