@@ -1,8 +1,9 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "About — Affnaai",
+  title: "About",
   description: "Why Affnaai exists, and what we believe about AI for small businesses.",
+  alternates: { canonical: "/about" },
 };
 
 export default function AboutPage() {
@@ -13,10 +14,8 @@ export default function AboutPage() {
         <div className="absolute inset-0 radial-fade-top pointer-events-none" />
         <div className="container-x relative">
           <div className="mx-auto max-w-3xl">
-            <span className="chip">[ ABOUT ]</span>
-            <h1 className="mt-5 font-display text-balance text-5xl text-ink lg:text-6xl">
-              We're building the front desk <br />
-              <span className="text-gradient-cyan">that never sleeps.</span>
+            <h1 className="font-display text-balance text-5xl text-ink lg:text-6xl">
+              We're building the front desk that never sleeps.
             </h1>
           </div>
         </div>
@@ -44,12 +43,10 @@ export default function AboutPage() {
             </p>
 
             <div className="rounded-2xl border-l-2 border-cyan-glow bg-bg-surface/50 p-6">
-              <p className="text-ink">
-                <span className="font-display text-2xl">
-                  "AI employees for service businesses."
-                </span>
+              <p className="font-display text-2xl text-ink">
+                "AI employees for service businesses."
               </p>
-              <p className="mt-2 font-mono text-xs uppercase tracking-widest text-ink-dim">
+              <p className="mt-2 text-sm text-ink-muted">
                 — How we think about what we build.
               </p>
             </div>
@@ -74,8 +71,7 @@ export default function AboutPage() {
         <div className="container-x">
           <div className="mx-auto max-w-4xl">
             <div className="text-center">
-              <span className="chip">[ WHAT WE BELIEVE ]</span>
-              <h2 className="mt-5 font-display text-4xl text-balance text-ink lg:text-5xl">
+              <h2 className="font-display text-4xl text-balance text-ink lg:text-5xl">
                 A few things we hold to.
               </h2>
             </div>
