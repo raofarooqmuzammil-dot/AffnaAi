@@ -32,11 +32,12 @@ const columns = [
   },
 ];
 
+const WHATSAPP_URL = "https://wa.me/923334985948";
+
 export default function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="relative border-t border-bg-border bg-bg-base">
-      <div className="absolute inset-x-0 top-0 h-px divider-glow" aria-hidden />
+    <footer className="border-t border-bg-border bg-bg-base">
       <div className="container-x py-16 lg:py-20">
         <div className="grid grid-cols-2 gap-10 lg:grid-cols-5">
           <div className="col-span-2 lg:col-span-2">
@@ -45,15 +46,22 @@ export default function Footer() {
               AI receptionists that answer calls, reply on WhatsApp, and convert
               leads into bookings — for service businesses.
             </p>
-            <div className="mt-6 flex items-center gap-2 font-mono text-xs text-ink-dim">
-              <span className="inline-block h-1.5 w-1.5 animate-pulse-dot rounded-full bg-success" />
-              <span>SYSTEM ONLINE · ANSWERING 24/7</span>
-            </div>
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-flex items-center gap-2 rounded-full border border-bg-borderHi bg-bg-elevated/60 px-4 py-2 text-sm text-ink transition-all hover:border-[#25D366]/40 hover:bg-[#25D366]/5"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#25D366" aria-hidden>
+                <path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"/>
+              </svg>
+              Message us on WhatsApp
+            </a>
           </div>
 
           {columns.map((col) => (
             <div key={col.title}>
-              <h4 className="mb-4 font-mono text-xs uppercase tracking-widest text-ink-dim">
+              <h4 className="mb-4 text-sm font-medium text-ink">
                 {col.title}
               </h4>
               <ul className="flex flex-col gap-3">
@@ -61,7 +69,7 @@ export default function Footer() {
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="text-sm text-ink-muted transition-colors hover:text-cyan-glow"
+                      className="text-sm text-ink-muted transition-colors hover:text-ink"
                     >
                       {link.label}
                     </Link>
@@ -73,20 +81,16 @@ export default function Footer() {
         </div>
 
         <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-bg-border pt-8 sm:flex-row sm:items-center">
-          <p className="font-mono text-xs text-ink-dim">
-            © {year} AFFNAAI · Built for businesses that hate missed calls.
+          <p className="text-xs text-ink-dim">
+            © {year} Affnaai. All rights reserved.
           </p>
-          <div className="flex items-center gap-6 font-mono text-xs text-ink-dim">
+          <div className="flex items-center gap-6 text-xs text-ink-dim">
             <Link href="/contact" className="hover:text-ink-muted">
               Privacy
             </Link>
             <Link href="/contact" className="hover:text-ink-muted">
               Terms
             </Link>
-            <span className="inline-flex items-center gap-1.5">
-              <span className="inline-block h-1 w-1 rounded-full bg-cyan-glow" />
-              v0.1
-            </span>
           </div>
         </div>
       </div>
