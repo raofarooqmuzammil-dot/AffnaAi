@@ -42,7 +42,7 @@ const faqs = [
   },
   {
     q: "Does it work in languages other than English?",
-    a: "Yes — Affnaai supports English, Urdu, Arabic, Spanish, and French out of the box. Other languages are available as a $99/mo add-on. The AI can auto-detect the customer's language and respond in kind.",
+    a: "Yes — Affnaai supports Arabic, Spanish, French, German, Italian, Portuguese, Turkish, Hindi, Bengali, and Mandarin out of the box. Additional languages are available as a $99/mo add-on. The AI auto-detects the customer's language from their first message and responds in kind — so the same WhatsApp number can handle customers in multiple languages without any setup.",
   },
   {
     q: "How does Affnaai compare to hiring a receptionist?",
@@ -54,7 +54,7 @@ const faqs = [
   },
   {
     q: "What's the founding client offer?",
-    a: "We're onboarding a small group of early clients at a discounted rate ($297/mo + $299 setup, vs $397 + $499) in exchange for case-study participation and product feedback. Pricing is locked for 12 months. Limited spots — check the pricing page to apply.",
+    a: "We're onboarding 10 founding clients at a discounted rate ($249/mo + $299 setup, vs the regular $397 + $499) in exchange for case-study participation and a monthly 30-min feedback call. Pricing is locked for 12 months. Check the pricing page to apply.",
   },
 ];
 
@@ -64,10 +64,7 @@ const faqSchema = {
   mainEntity: faqs.map((f) => ({
     "@type": "Question",
     name: f.q,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: f.a,
-    },
+    acceptedAnswer: { "@type": "Answer", text: f.a },
   })),
 };
 
@@ -83,8 +80,7 @@ export default function FAQPage() {
         <div className="absolute inset-0 radial-fade-top pointer-events-none" />
         <div className="container-x relative">
           <div className="mx-auto max-w-3xl text-center">
-            <span className="chip">[ FAQ ]</span>
-            <h1 className="mt-5 font-display text-balance text-5xl text-ink lg:text-6xl">
+            <h1 className="font-display text-balance text-5xl text-ink lg:text-6xl">
               Questions you're probably asking.
             </h1>
             <p className="mt-5 text-pretty text-lg text-ink-muted">
