@@ -45,24 +45,9 @@ export default function IndustryTemplate({ slug }) {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: SITE_URL,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Industries",
-        item: `${SITE_URL}/industries`,
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: data.name,
-        item: `${SITE_URL}/industries/${data.slug}`,
-      },
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE_URL },
+      { "@type": "ListItem", position: 2, name: "Industries", item: `${SITE_URL}/industries` },
+      { "@type": "ListItem", position: 3, name: data.name, item: `${SITE_URL}/industries/${data.slug}` },
     ],
   };
 
@@ -85,21 +70,15 @@ export default function IndustryTemplate({ slug }) {
           <div className="mx-auto max-w-4xl">
             <Link
               href="/industries"
-              className="font-mono text-xs uppercase tracking-widest text-ink-dim hover:text-ink-muted"
+              className="text-sm text-ink-dim hover:text-ink-muted"
             >
               ← All industries
             </Link>
-            <div className="mt-6 flex items-center gap-4">
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl border border-bg-borderHi bg-bg-elevated text-3xl">
-                {data.icon}
-              </div>
-              <span className="chip-glow">{data.short.toUpperCase()}</span>
-            </div>
-            <h1 className="mt-7 font-display text-balance text-5xl text-ink lg:text-6xl xl:text-7xl">
+            <h1 className="mt-8 font-display text-balance text-5xl text-ink lg:text-6xl xl:text-7xl">
               AI receptionist <br />
               <span className="text-ink-muted">for {data.name.toLowerCase()}.</span>
             </h1>
-            <p className="mt-6 text-pretty text-xl text-cyan-glow lg:text-2xl">
+            <p className="mt-6 text-pretty text-xl text-ink-muted lg:text-2xl">
               {data.tagline}
             </p>
           </div>
@@ -111,13 +90,13 @@ export default function IndustryTemplate({ slug }) {
         <div className="container-x">
           <div className="mx-auto grid max-w-5xl items-start gap-12 lg:grid-cols-2 lg:gap-16">
             <div>
-              <span className="chip">[ THE PROBLEM ]</span>
+              <h2 className="font-display text-2xl text-ink">The problem</h2>
               <p className="mt-4 text-pretty text-lg leading-relaxed text-ink-muted">
                 {data.pain}
               </p>
             </div>
             <div>
-              <span className="chip-glow">[ WHAT AFFNAAI DOES ]</span>
+              <h2 className="font-display text-2xl text-ink">What Affnaai does</h2>
               <p className="mt-4 text-pretty text-lg leading-relaxed text-ink">
                 {data.solution}
               </p>
@@ -131,8 +110,7 @@ export default function IndustryTemplate({ slug }) {
         <div className="container-x">
           <div className="mx-auto max-w-5xl">
             <div className="mb-12 text-center">
-              <span className="chip">[ EXPECTED IMPACT ]</span>
-              <h2 className="mt-5 font-display text-4xl text-balance text-ink lg:text-5xl">
+              <h2 className="font-display text-4xl text-balance text-ink lg:text-5xl">
                 What changes in 30 days.
               </h2>
               <p className="mx-auto mt-4 max-w-xl text-pretty text-ink-muted">
@@ -144,18 +122,16 @@ export default function IndustryTemplate({ slug }) {
             <div className="grid gap-5 md:grid-cols-3">
               {data.stats.map((s) => (
                 <div key={s.label} className="card overflow-hidden p-6">
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-ink-dim">
-                    {s.label}
-                  </div>
+                  <div className="text-xs text-ink-dim">{s.label}</div>
                   <div className="mt-5">
-                    <div className="font-mono text-xs text-ink-dim">Before</div>
+                    <div className="text-xs text-ink-dim">Before</div>
                     <div className="mt-1 font-display text-2xl text-ink-muted line-through decoration-danger/40">
                       {s.before}
                     </div>
                   </div>
                   <div className="mt-4">
-                    <div className="font-mono text-xs text-cyan-glow">With Affnaai</div>
-                    <div className="mt-1 font-display text-3xl text-gradient-cyan">
+                    <div className="text-xs text-cyan-glow">With Affnaai</div>
+                    <div className="mt-1 font-display text-3xl text-ink">
                       {s.after}
                     </div>
                   </div>
@@ -171,26 +147,22 @@ export default function IndustryTemplate({ slug }) {
         <div className="container-x">
           <div className="mx-auto max-w-4xl">
             <div className="text-center">
-              <span className="chip">[ WHAT YOUR CUSTOMERS ASK ]</span>
-              <h2 className="mt-5 font-display text-3xl text-balance text-ink lg:text-4xl">
+              <h2 className="font-display text-3xl text-balance text-ink lg:text-4xl">
                 Affnaai is trained on the exact questions your industry gets.
               </h2>
             </div>
             <div className="mt-10 space-y-3">
-              {data.samplePrompts.map((p, i) => (
-                <div key={p} className="card flex items-start gap-4 p-5">
-                  <span className="font-mono text-xs text-ink-dim">0{i + 1}</span>
+              {data.samplePrompts.map((p) => (
+                <div key={p} className="card p-5">
                   <p className="text-pretty text-ink">"{p}"</p>
                 </div>
               ))}
             </div>
 
             <div className="mt-10 flex flex-wrap justify-center gap-2">
-              <span className="font-mono text-[10px] uppercase tracking-widest text-ink-dim">
-                Handles on:
-              </span>
+              <span className="text-sm text-ink-muted mr-2">Handles on:</span>
               {data.channels.map((c) => (
-                <span key={c} className="chip-glow">
+                <span key={c} className="rounded-full border border-cyan-glow/30 bg-cyan-glow/5 px-3 py-1 text-xs text-cyan-glow">
                   {c}
                 </span>
               ))}
@@ -203,8 +175,7 @@ export default function IndustryTemplate({ slug }) {
       <section className="py-24">
         <div className="container-x">
           <div className="mx-auto max-w-3xl text-center">
-            <span className="chip-glow">[ TRY IT NOW ]</span>
-            <h2 className="mt-5 font-display text-4xl text-balance text-ink lg:text-5xl">
+            <h2 className="font-display text-4xl text-balance text-ink lg:text-5xl">
               Have a real conversation with the AI.
             </h2>
             <p className="mx-auto mt-5 max-w-xl text-pretty text-ink-muted">
@@ -229,11 +200,10 @@ export default function IndustryTemplate({ slug }) {
                 <Link
                   key={i.slug}
                   href={`/industries/${i.slug}`}
-                  className="card card-hover group flex items-center gap-3 p-4"
+                  className="card card-hover group flex items-center justify-between p-4"
                 >
-                  <span className="text-xl">{i.icon}</span>
                   <span className="text-sm text-ink">{i.short}</span>
-                  <span className="ml-auto text-cyan-glow opacity-0 transition-opacity group-hover:opacity-100">
+                  <span className="text-cyan-glow opacity-0 transition-opacity group-hover:opacity-100">
                     →
                   </span>
                 </Link>
