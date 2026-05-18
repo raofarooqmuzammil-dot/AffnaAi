@@ -1,6 +1,6 @@
 "use client";
 
-import Script from "next/script";
+import { useEffect, useRef } from "react";
 
 const CALENDLY_URL =
   "https://calendly.com/data_managing_services/affnaai-setup-call" +
@@ -11,21 +11,65 @@ const CALENDLY_URL =
   "&hide_gdpr_banner=1";
 
 export default function ContactPage() {
+  const widgetRef = useRef(null);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const initWidget = () => {
+      if (cancelled || !widgetRef.current) return;
+      if (window.Calendly?.initInlineWidget) {
+        // Clear any previous content first (prevents duplicates on re-renders)
+        widgetRef.current.innerHTML = "";
+        window.Calendly.initInlineWidget({
+          url: CALENDLY_URL,
+          parentElement: widgetRef.current,
+        });
+      }
+    };
+
+    // If Calendly is already loaded (e.g. user navigated back), init immediately
+    if (window.Calendly) {
+      initWidget();
+      return () => {
+        cancelled = true;
+      };
+    }
+
+    // Otherwise inject the script and wait for it
+    let script = document.querySelector(
+      'script[src="https://assets.calendly.com/assets/external/widget.js"]'
+    );
+
+    if (!script) {
+      script = document.createElement("script");
+      script.src = "https://assets.calendly.com/assets/external/widget.js";
+      script.async = true;
+      script.onload = initWidget;
+      document.head.appendChild(script);
+
+      // Also load the stylesheet
+      const link = document.createElement("link");
+      link.href = "https://assets.calendly.com/assets/external/widget.css";
+      link.rel = "stylesheet";
+      document.head.appendChild(link);
+    } else {
+      script.addEventListener("load", initWidget);
+    }
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   return (
     <>
-      {/* Calendly widget script — loads after page is interactive */}
-      <Script
-        src="https://assets.calendly.com/assets/external/widget.js"
-        strategy="lazyOnload"
-      />
-
       <section className="relative overflow-hidden pt-32 pb-12 lg:pt-40">
         <div className="absolute inset-0 grid-bg pointer-events-none opacity-50" />
         <div className="absolute inset-0 radial-fade-top pointer-events-none" />
         <div className="container-x relative">
           <div className="mx-auto max-w-3xl text-center">
-            <span className="chip">[ CONTACT ]</span>
-            <h1 className="mt-5 font-display text-balance text-5xl text-ink lg:text-6xl">
+            <h1 className="font-display text-balance text-5xl text-ink lg:text-6xl">
               Pick a time. <br />
               <span className="text-ink-muted">We'll have a plan ready.</span>
             </h1>
@@ -41,7 +85,7 @@ export default function ContactPage() {
       <section className="pb-24">
         <div className="container-x">
           <div className="mx-auto max-w-4xl">
-            {/* Calendly inline embed */}
+            {/* Calendly embed wrapper */}
             <div className="card overflow-hidden">
               <div className="flex items-center justify-between border-b border-bg-border bg-bg-elevated/60 px-5 py-3">
                 <div className="flex items-center gap-3">
@@ -73,8 +117,8 @@ export default function ContactPage() {
                 <span className="chip-glow">LIVE CALENDAR</span>
               </div>
               <div
-                className="calendly-inline-widget bg-bg-base"
-                data-url={CALENDLY_URL}
+                ref={widgetRef}
+                className="bg-bg-base"
                 style={{ minWidth: "320px", height: "700px" }}
               />
             </div>
