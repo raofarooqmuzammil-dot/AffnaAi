@@ -35,8 +35,27 @@ export default function ChatWidget() {
   const inputRef = useRef(null);
 
   useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    if (!scrollRef.current) return;
+
+    const lastMessage = messages[messages.length - 1];
+    const container = scrollRef.current;
+
+    // When a new AI reply arrives, scroll to show its START (not bottom)
+    // This way long replies don't have the beginning hidden off-screen
+    if (lastMessage?.role === "assistant" && !loading) {
+      setTimeout(() => {
+        const bubbles = container.querySelectorAll('[data-role="assistant"]');
+        const lastBubble = bubbles[bubbles.length - 1];
+        if (lastBubble) {
+          container.scrollTo({
+            top: lastBubble.offsetTop - 12,
+            behavior: "smooth",
+          });
+        }
+      }, 80);
+    } else {
+      // For user messages, typing indicator, or capture form — scroll to bottom
+      container.scrollTop = container.scrollHeight;
     }
   }, [messages, loading, stage]);
 
@@ -442,7 +461,10 @@ export default function ChatWidget() {
 function Bubble({ role, content }) {
   const isUser = role === "user";
   return (
-    <div className={`flex animate-fade-in ${isUser ? "justify-end" : "justify-start"}`}>
+    <div
+      data-role={role}
+      className={`flex animate-fade-in ${isUser ? "justify-end" : "justify-start"}`}
+    >
       {!isUser && (
         <div
           className="mr-2 mt-1 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-[10px] font-bold text-bg-base"
