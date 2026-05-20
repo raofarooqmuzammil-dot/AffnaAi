@@ -1,6 +1,7 @@
 import { Analytics } from "@vercel/analytics/next"
 import { Bricolage_Grotesque, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import Navbar from "@/components/Navbar";
+import AnnouncementBanner from "@/components/AnnouncementBanner";
 import Footer from "@/components/Footer";
 import ChatWidget from "@/components/ChatWidget";
 import "./globals.css";
@@ -112,6 +113,9 @@ export default function RootLayout({ children }) {
       </head>
       <body className="min-h-screen bg-bg-base text-ink antialiased">
         <Navbar />
+        <body className="...">
+  <AnnouncementBanner />
+  <Navbar />
         <main className="relative">{children}</main>
         <Footer />
         <ChatWidget />
