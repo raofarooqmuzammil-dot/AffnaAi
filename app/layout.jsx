@@ -1,6 +1,7 @@
 import { Bricolage_Grotesque, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ChatWidget from "@/components/ChatWidget";
 import "./globals.css";
 
 const display = Bricolage_Grotesque({
@@ -77,7 +78,6 @@ const organizationSchema = {
   logo: `${SITE_URL}/opengraph-image`,
   description:
     "AI receptionists that answer calls, reply on WhatsApp, and convert leads into bookings — for service businesses.",
-  sameAs: [],
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "Sales",
@@ -113,6 +113,7 @@ export default function RootLayout({ children }) {
         <Navbar />
         <main className="relative">{children}</main>
         <Footer />
+        <ChatWidget />
       </body>
     </html>
   );
