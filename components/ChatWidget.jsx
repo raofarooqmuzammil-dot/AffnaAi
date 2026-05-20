@@ -29,6 +29,7 @@ export default function ChatWidget() {
   const [leadError, setLeadError] = useState("");
   const [firstQuestion, setFirstQuestion] = useState("");
   const captureTriggeredRef = useRef(false);
+  const pendingMessagesRef = useRef(null); // Snapshot of messages waiting for AI after capture
 
   const scrollRef = useRef(null);
   const inputRef = useRef(null);
@@ -45,6 +46,32 @@ export default function ChatWidget() {
     }
   }, [open]);
 
+  const sendToAI = async (messagesArray) => {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/widget-chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: messagesArray.map((m) => ({ role: m.role, content: m.content })),
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Failed");
+      setMessages((m) => [...m, { role: "assistant", content: data.reply }]);
+    } catch {
+      setMessages((m) => [
+        ...m,
+        {
+          role: "assistant",
+          content: "Something went wrong. Email us at ai@affnaai.com and we'll get right back to you.",
+        },
+      ]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const send = async (text) => {
     const content = (text || input).trim();
     if (!content || loading || stage === "capturing") return;
@@ -54,38 +81,21 @@ export default function ChatWidget() {
     setInput("");
     const next = [...messages, { role: "user", content }];
     setMessages(next);
-    setLoading(true);
 
-    try {
-      const res = await fetch("/api/widget-chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          messages: next.map((m) => ({ role: m.role, content: m.content })),
-        }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Failed");
+    // Count user messages so far
+    const userMessageCount = next.filter((m) => m.role === "user").length;
 
-      setMessages((m) => [...m, { role: "assistant", content: data.reply }]);
-
-      // Trigger lead capture after first AI reply (only once)
-      if (!captureTriggeredRef.current) {
-        captureTriggeredRef.current = true;
-        setTimeout(() => setStage("capturing"), 600);
-      }
-    } catch {
-      setMessages((m) => [
-        ...m,
-        {
-          role: "assistant",
-          content:
-            "Something went wrong. Email us at ai@affnaai.com and we'll get right back to you.",
-        },
-      ]);
-    } finally {
-      setLoading(false);
+    // INTERCEPT the SECOND user message — show capture form BEFORE sending to AI
+    // (Lets user see the first AI reply, then asks for info when they engage again)
+    if (userMessageCount === 2 && !captureTriggeredRef.current) {
+      captureTriggeredRef.current = true;
+      pendingMessagesRef.current = next; // Save snapshot — send to AI after form is filled
+      setTimeout(() => setStage("capturing"), 400);
+      return;
     }
+
+    // Otherwise, send to AI normally
+    await sendToAI(next);
   };
 
   const onKey = (e) => {
@@ -121,19 +131,40 @@ export default function ChatWidget() {
         }),
       });
 
+      const firstName = name.split(" ")[0];
       setStage("captured");
       setMessages((m) => [
         ...m,
         {
           role: "assistant",
-          content: `Thanks ${name.split(" ")[0]}! We have your details. Feel free to keep asking — I'm here to help.`,
+          content: `Thanks ${firstName}! Let me get back to your question.`,
         },
       ]);
+
+      // If we intercepted a 2nd user message, now send it to AI
+      if (pendingMessagesRef.current) {
+        const snapshot = pendingMessagesRef.current;
+        pendingMessagesRef.current = null;
+        setTimeout(() => sendToAI(snapshot), 900);
+      }
     } catch {
       setLeadError("Something went wrong. Try again.");
     } finally {
       setLeadSubmitting(false);
     }
+  };
+
+  const resetChat = () => {
+    setMessages([{ role: "assistant", content: GREETING }]);
+    setInput("");
+    setLoading(false);
+    setFirstQuestion("");
+    setLeadForm({ name: "", email: "", phone: "" });
+    setLeadError("");
+    pendingMessagesRef.current = null;
+    // If form was showing, close it. Keep captureTriggeredRef intact —
+    // already-captured users won't be re-asked for their info.
+    if (stage === "capturing") setStage("chat");
   };
 
   const showQuickReplies = messages.length === 1 && !loading && stage === "chat";
@@ -175,20 +206,38 @@ export default function ChatWidget() {
                 </div>
               </div>
             </div>
-            <button
-              onClick={() => setOpen(false)}
-              className="flex h-7 w-7 items-center justify-center rounded-full text-ink-dim transition-colors hover:bg-bg-border hover:text-ink"
-              aria-label="Close"
-            >
-              <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
-                <path
-                  d="M1 1l9 9M10 1L1 10"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </button>
+            <div className="flex items-center gap-1">
+              <button
+                onClick={resetChat}
+                className="flex h-7 w-7 items-center justify-center rounded-full text-ink-dim transition-colors hover:bg-bg-border hover:text-ink"
+                aria-label="Start new conversation"
+                title="Start new conversation"
+              >
+                <svg width="12" height="12" viewBox="0 0 14 14" fill="none">
+                  <path
+                    d="M13 7a6 6 0 11-1.76-4.24M13 1v3h-3"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </button>
+              <button
+                onClick={() => setOpen(false)}
+                className="flex h-7 w-7 items-center justify-center rounded-full text-ink-dim transition-colors hover:bg-bg-border hover:text-ink"
+                aria-label="Close"
+              >
+                <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
+                  <path
+                    d="M1 1l9 9M10 1L1 10"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </button>
+            </div>
           </div>
 
           {/* Messages */}
@@ -212,7 +261,7 @@ export default function ChatWidget() {
                     A
                   </div>
                   <p className="text-xs font-medium text-ink">
-                    Before I continue — what's the best way to reach you?
+                    Before I answer — what's the best way to reach you?
                   </p>
                 </div>
                 <form onSubmit={submitLead} className="space-y-2">
@@ -346,7 +395,6 @@ export default function ChatWidget() {
             : "0 0 0 1px rgba(34,211,238,0.4), 0 0 32px rgba(34,211,238,0.3), 0 8px 24px rgba(0,0,0,0.5)",
         }}
       >
-        {/* Pulse ring when closed */}
         {!open && (
           <span
             className="absolute inset-0 animate-ping rounded-full opacity-20"
