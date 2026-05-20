@@ -112,7 +112,6 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="min-h-screen bg-bg-base text-ink antialiased">
-        <AnnouncementBanner />
         <Navbar />
         <main className="relative">{children}</main>
         <Footer />
