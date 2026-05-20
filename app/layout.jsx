@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next"
 import { Bricolage_Grotesque, Plus_Jakarta_Sans, JetBrains_Mono } from "next/font/google";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -114,6 +115,7 @@ export default function RootLayout({ children }) {
         <main className="relative">{children}</main>
         <Footer />
         <ChatWidget />
+        <Analytics />
       </body>
     </html>
   );
