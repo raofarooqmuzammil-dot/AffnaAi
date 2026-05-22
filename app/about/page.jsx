@@ -4,6 +4,18 @@ export const metadata = {
   title: "About",
   description: "Why Affnaai exists, and what we believe about AI for small businesses.",
   alternates: { canonical: "/about" },
+  openGraph: {
+    title: "About · Affnaai",
+    description: "Why Affnaai exists, and what we believe about AI for small businesses.",
+    url: "/about",
+    type: "website",
+    siteName: "Affnaai",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About · Affnaai",
+    description: "Why Affnaai exists, and what we believe about AI for small businesses.",
+  },
 };
 
 export default function AboutPage() {
