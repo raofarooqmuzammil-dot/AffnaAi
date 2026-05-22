@@ -48,7 +48,6 @@ const tiers = [
     description: "Most service businesses end up here.",
     features: [
       "Everything in Plus",
-      "SMS Reminders",
       "Booking + Rescheduling",
       "Lead Qualification",
       "CRM Integration",
