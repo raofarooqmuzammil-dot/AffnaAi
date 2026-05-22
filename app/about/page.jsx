@@ -91,7 +91,7 @@ export default function AboutPage() {
                 },
                 {
                   t: "Pricing should be honest",
-                  d: "What you see is what you pay. No setup-fee surprises, no per-conversation gotchas, no lock-ins.",
+                  d: "Pricing is transparent setup fees, monthly costs, and per-conversation rates are all listed up front on the pricing page. No long contracts, cancel anytime.",
                 },
               ].map((b) => (
                 <div key={b.t} className="card p-6">
