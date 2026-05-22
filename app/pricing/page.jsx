@@ -5,8 +5,19 @@ export const metadata = {
   title: "Pricing",
   description: "Four pricing plans for service businesses — Starter, Plus, Growth, and Pro. Live in 7 days.",
   alternates: { canonical: "/pricing" },
+  openGraph: {
+    title: "Pricing · Affnaai",
+    description: "Four pricing plans for service businesses — Starter, Plus, Growth, and Pro. Live in 7 days.",
+    url: "/pricing",
+    type: "website",
+    siteName: "Affnaai",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pricing · Affnaai",
+    description: "Four pricing plans for service businesses — Starter, Plus, Growth, and Pro. Live in 7 days.",
+  },
 };
-
 export default function PricingPage() {
   return (
     <>
