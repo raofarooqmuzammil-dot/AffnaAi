@@ -5,9 +5,21 @@ import ROICalculator from "@/components/ROICalculator";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Live Demo",
-  description: "Try the AI receptionist live. Web chat, WhatsApp, voice, and ROI calculator.",
+  title: "Demo",
+  description: "Try Affnaai's AI receptionist live — web chat, WhatsApp, and voice demos. See it qualify leads and book appointments in real time.",
   alternates: { canonical: "/demo" },
+  openGraph: {
+    title: "Demo · Affnaai",
+    description: "Try Affnaai's AI receptionist live — web chat, WhatsApp, and voice demos.",
+    url: "/demo",
+    type: "website",
+    siteName: "Affnaai",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Demo · Affnaai",
+    description: "Try Affnaai's AI receptionist live — web chat, WhatsApp, and voice demos.",
+  },
 };
 
 export default function DemoPage() {
