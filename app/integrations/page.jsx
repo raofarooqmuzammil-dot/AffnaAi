@@ -5,6 +5,18 @@ export const metadata = {
   title: "Integrations",
   description: "Affnaai plugs into WhatsApp, Calendar, CRM, payments, and more.",
   alternates: { canonical: "/integrations" },
+  openGraph: {
+    title: "Integrations · Affnaai",
+    description: "Affnaai plugs into WhatsApp, Calendar, CRM, payments, and more.",
+    url: "/integrations",
+    type: "website",
+    siteName: "Affnaai",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Integrations · Affnaai",
+    description: "Affnaai plugs into WhatsApp, Calendar, CRM, payments, and more.",
+  },
 };
 
 export default function IntegrationsPage() {
