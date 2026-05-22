@@ -45,7 +45,7 @@ export default function HowItWorksPage() {
               From signup to live in <span className="text-gradient-cyan">7 days.</span>
             </h1>
             <p className="mt-5 text-pretty text-lg text-ink-muted">
-              No agencies, no 3-month onboarding, no $10k setup fees. Here's
+              No agencies, no 3-month onboarding, no $10k agency setup fees. Here's
               exactly what happens.
             </p>
           </div>
@@ -90,7 +90,7 @@ export default function HowItWorksPage() {
                 { t: "No long contracts", d: "Month-to-month. Cancel anytime." },
                 { t: "No setup nightmares", d: "We do the integrations. You just approve." },
                 { t: "No black box", d: "Read every conversation in your dashboard." },
-                { t: "No bait & switch pricing", d: "What you see is what you pay." },
+                { t: "Pricing listed up front", d: "Setup fees, monthly cost, and overage rates all shown clearly on the pricing page." },
               ].map((p) => (
                 <div key={p.t} className="card p-5">
                   <h3 className="font-display text-lg text-ink">{p.t}</h3>
