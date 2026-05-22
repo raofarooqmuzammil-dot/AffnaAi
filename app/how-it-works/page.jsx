@@ -4,8 +4,19 @@ export const metadata = {
   title: "How it works",
   description: "From sign-up to going live in 7 days. Here's exactly what happens.",
   alternates: { canonical: "/how-it-works" },
+  openGraph: {
+    title: "How it works · Affnaai",
+    description: "From sign-up to going live in 7 days. Here's exactly what happens.",
+    url: "/how-it-works",
+    type: "website",
+    siteName: "Affnaai",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "How it works · Affnaai",
+    description: "From sign-up to going live in 7 days. Here's exactly what happens.",
+  },
 };
-
 const steps = [
   {
     n: "01",
