@@ -5,6 +5,18 @@ export const metadata = {
   title: "FAQ",
   description: "Answers to common questions about Affnaai's AI receptionist.",
   alternates: { canonical: "/faq" },
+  openGraph: {
+    title: "FAQ · Affnaai",
+    description: "Answers to common questions about Affnaai's AI receptionist.",
+    url: "/faq",
+    type: "website",
+    siteName: "Affnaai",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FAQ · Affnaai",
+    description: "Answers to common questions about Affnaai's AI receptionist.",
+  },
 };
 
 const faqs = [
