@@ -33,7 +33,6 @@ const tiers = [
     features: [
       "Everything in Starter",
       "WhatsApp AI Assistant",
-      "Missed Call Text-Back",
       "Web Chat Widget",
       "Up to 1,000 conversations / month",
     ],
