@@ -38,7 +38,7 @@ const faqs = [
   },
   {
     q: "Where is my data stored?",
-    a: "Conversations are encrypted in transit and at rest, stored on Vercel and Supabase infrastructure (US/EU regions, your choice). We never sell customer data or use your conversations to train shared models. You can request deletion at any time.",
+    a: "Conversations are encrypted in transit and at rest, stored on enterprise-grade cloud infrastructure (US/EU regions available). We never sell customer data or use your conversations to train shared models. You can request deletion at any time.",
   },
   {
     q: "Does it work in languages other than English?",
@@ -46,7 +46,7 @@ const faqs = [
   },
   {
     q: "How does Affnaai compare to hiring a receptionist?",
-    a: "A full-time receptionist costs ~$3,000-$4,500/mo and covers ~40 hours per week. Affnaai costs $149-$997/mo, covers 24/7, handles every channel (not just phone), and never has a bad day. It won't replace humans for high-trust conversations — but for routine bookings, FAQ, and after-hours coverage, it's far cheaper and more available.",
+    a: "A full-time receptionist costs ~$3,000-$4,500/mo and covers ~40 hours per week. Affnaai costs $149-$397/mo for standard plans (Pro is custom-priced), covers 24/7, handles every channel (not just phone), and never has a bad day. It won't replace humans for high-trust conversations — but for routine bookings, FAQ, and after-hours coverage, it's far cheaper and more available.",
   },
   {
     q: "Can I see a live AI conversation before signing up?",
