@@ -3,8 +3,20 @@ import { blogPosts } from "@/lib/blog-posts";
 
 export const metadata = {
   title: "Blog",
-  description: "Notes on AI receptionists, missed-call economics, and running service businesses.",
+  description: "Insights on AI receptionists, missed call recovery, WhatsApp automation, and growing service businesses.",
   alternates: { canonical: "/blog" },
+  openGraph: {
+    title: "Blog · Affnaai",
+    description: "Insights on AI receptionists, missed call recovery, WhatsApp automation, and growing service businesses.",
+    url: "/blog",
+    type: "website",
+    siteName: "Affnaai",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Blog · Affnaai",
+    description: "Insights on AI receptionists, missed call recovery, WhatsApp automation, and growing service businesses.",
+  },
 };
 
 export default function BlogPage() {
