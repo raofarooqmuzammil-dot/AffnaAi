@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata = {
   title: "Pricing",
-  description: "Three plans for service businesses. Starter, Plus, Growth, and Pro.",
+  description: "Four pricing plans for service businesses — Starter, Plus, Growth, and Pro. Live in 7 days.",
   alternates: { canonical: "/pricing" },
 };
 
