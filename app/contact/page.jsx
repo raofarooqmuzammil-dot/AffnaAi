@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 
 const CALENDLY_URL =
-  "https://calendly.com/data_managing_services/affnaai-setup-call" +
+  "https://calendly.com/affnaai/affnaai-setup-call" +
   "?primary_color=22D3EE" +
   "&background_color=050507" +
   "&text_color=F4F4F5" +
