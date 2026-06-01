@@ -48,7 +48,7 @@ export const metadata = {
   openGraph: {
     title: "Affnaai — AI Receptionists for Service Businesses",
     description:
-      "Answer every call, every chat, every DM — automatically. Live in 7 days.",
+      "Automating customer conversation into revenue. AI receptionists that handle calls, WhatsApp, web chat, and DMs 24/7.",
     url: SITE_URL,
     siteName: "Affnaai",
     type: "website",
@@ -58,7 +58,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "Affnaai — AI Receptionists for Service Businesses",
     description:
-      "Answer every call, every chat, every DM — automatically. Live in 7 days.",
+      "Automating customer conversation into revenue. AI receptionists that handle calls, WhatsApp, web chat, and DMs 24/7.",
   },
   robots: {
     index: true,
