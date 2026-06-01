@@ -65,7 +65,7 @@ export default function Navbar() {
       >
         {/* Founding 10 announcement banner — clickable, links to pricing */}
         <Link
-          href="/pricing"
+          href="/contact"
           className="relative flex w-full items-center justify-center gap-2 border-b border-cyan-glow/15 bg-bg-elevated px-4 py-2 text-center text-xs text-ink-muted transition-colors hover:text-ink sm:gap-3 sm:text-sm"
           onClick={() => setOpen(false)}
         >
