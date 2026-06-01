@@ -31,7 +31,7 @@ function Hero() {
           <h1
             className="font-display text-balance text-5xl text-ink sm:text-6xl lg:text-7xl xl:text-8xl animate-fade-up"
           >
-            Automating  <span className="text-gradient-cyan">customer</span> conversation into{" "}
+            Automating  <span className="text-gradient-cyan">customer</span>. conversation into{" "}
             <span className="text-gradient-cyan">revenue</span>.
           </h1>
 
