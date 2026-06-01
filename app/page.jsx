@@ -1,13 +1,14 @@
 import Link from "next/link";
 import { industries } from "@/lib/industries";
 import BeforeAfter from "@/components/BeforeAfter";
- import ChatPreview from "@/components/ChatPreview";
+import ChatPreview from "@/components/ChatPreview";
 import IntegrationsGrid from "@/components/IntegrationsGrid";
 
 export default function HomePage() {
   return (
     <>
       <Hero />
+      <ChatPreview />
       <Trust />
       <ProblemSolution />
       <DemoPreview />
@@ -71,7 +72,6 @@ function Hero() {
         </div>
       </div>
     </section>
-    <ChatPreview />
   );
 }
 
