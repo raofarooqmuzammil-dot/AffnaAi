@@ -45,7 +45,7 @@ export default function Navbar() {
     };
   }, [open]);
 
-  // Close menu on route change or escape key
+  // Close menu on escape key
   useEffect(() => {
     const onKey = (e) => {
       if (e.key === "Escape") setOpen(false);
@@ -63,6 +63,43 @@ export default function Navbar() {
             : "border-b border-transparent"
         }`}
       >
+        {/* Founding 10 announcement banner — clickable, links to pricing */}
+        <Link
+          href="/pricing"
+          className="relative flex w-full items-center justify-center gap-2 border-b border-cyan-glow/15 bg-bg-elevated px-4 py-2 text-center text-xs text-ink-muted transition-colors hover:text-ink sm:gap-3 sm:text-sm"
+          onClick={() => setOpen(false)}
+        >
+          <span className="flex h-4 w-4 items-center justify-center rounded-full bg-cyan-glow/20 text-[10px]">
+            🔥
+          </span>
+          <span>
+            <span className="font-medium text-ink">Founding 10 launch</span>
+            <span className="hidden md:inline"> — Growth-tier AI receptionist for </span>
+            <span className="md:hidden"> · </span>
+            <span className="font-semibold text-cyan-glow">$249/mo</span>
+            <span className="hidden lg:inline"> · Save $148/mo</span>
+          </span>
+          <span className="inline-flex items-center gap-1 font-medium text-cyan-glow">
+            <span className="hidden sm:inline">Claim spot</span>
+            <span className="sm:hidden">View</span>
+            <svg
+              width="11"
+              height="11"
+              viewBox="0 0 11 11"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M2 5.5h7M9 5.5L6 2.5M9 5.5L6 8.5"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </span>
+        </Link>
+
         <div className="container-x">
           <nav className="flex h-16 items-center justify-between">
             <Link
@@ -121,7 +158,7 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Mobile menu — sibling of header, NOT nested, so it escapes any stacking context */}
+      {/* Mobile menu — top offset increased to clear banner + nav (banner ~36px + nav 64px = ~100px) */}
       <div
         className={`fixed inset-0 z-30 lg:hidden ${
           open ? "visible" : "invisible pointer-events-none"
@@ -136,9 +173,9 @@ export default function Navbar() {
           }`}
         />
 
-        {/* Sheet content */}
+        {/* Sheet content - top:100px to clear banner + navbar */}
         <div
-          className={`absolute inset-x-0 top-16 bottom-0 overflow-y-auto transition-all duration-300 ${
+          className={`absolute inset-x-0 bottom-0 top-[100px] overflow-y-auto transition-all duration-300 ${
             open ? "translate-y-0 opacity-100" : "-translate-y-2 opacity-0"
           }`}
         >
