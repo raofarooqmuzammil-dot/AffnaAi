@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { industries } from "@/lib/industries";
 import BeforeAfter from "@/components/BeforeAfter";
+ import ChatPreview from "@/components/ChatPreview";
 import IntegrationsGrid from "@/components/IntegrationsGrid";
 
 export default function HomePage() {
@@ -70,8 +71,10 @@ function Hero() {
         </div>
       </div>
     </section>
+    <ChatPreview />
   );
 }
+
 
 function FloatingChip({ label, style, delay }) {
   return (
