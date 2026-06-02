@@ -12,7 +12,7 @@ const QUICK_REPLIES = [
 ];
 
 const GREETING =
-  "Hi! I'm Affnaai's AI assistant. Ask me anything about the AI receptionist, pricing, or setup — or pick a question below.";
+  "Hi! I'm Affna AI. Ask me anything about pricing or setup, or choose one of the questions below.";
 
 export default function ChatWidget() {
   const [open, setOpen] = useState(false);
