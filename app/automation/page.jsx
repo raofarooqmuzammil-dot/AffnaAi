@@ -437,21 +437,12 @@ export default function AutomationPage() {
       <section className="py-20 lg:py-28">
         <div className="container-x">
           <div className="mx-auto max-w-4xl rounded-3xl border border-cyan-glow/30 bg-gradient-to-br from-cyan-glow/5 via-bg-surface/40 to-transparent p-10 text-center lg:p-16">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-glow/30 bg-cyan-glow/10 px-3 py-1 text-xs font-medium text-cyan-glow">
-              <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-glow" />
-              Founding build partners
-            </span>
-            <h2 className="mt-6 font-display text-balance text-3xl text-ink lg:text-4xl">
-              We're newer to commercial work, but we've built 350+ workflows
+           <h2 className="font-display text-balance text-3xl text-ink lg:text-5xl">
+             We build custom AI.
             </h2>
-            <p className="mx-auto mt-5 max-w-2xl text-pretty text-base text-ink-muted">
-              Affnaai is in early launch phase. We've spent the past year building
-              and stress-testing AI automation systems across every category above.
-              We're now ready to ship for paying clients — and our first builds
-              get founder-level attention, transparent pricing, and a partnership
-              that helps shape what we build next.
-            </p>
-            <div className="mt-10">
+            <p className="mx-auto mt-5 max-w-xl text-pretty text-base text-ink-muted">
+                 Starts from $3,000. Scoped to your needs. Timeline depends on what you're building.
+              </p>            <div className="mt-10">
               <Link href="/contact" className="btn-primary">
                 Talk to us about your automation
                 <ArrowIcon />
