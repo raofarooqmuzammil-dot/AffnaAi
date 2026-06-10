@@ -120,15 +120,3 @@ AI phone answering isn't a luxury anymore — it's what keeps competitive servic
 👉 Talk to the team:
 [https://affnaai.com/contact](https://affnaai.com/contact)
 
-## FAQ
-
-**Q: How long does setup take?**
-AffnaAI is built for fast onboarding — most businesses are live within 7 days.
-
-**Q: Does it connect with calendars and CRMs?**
-Yes. See everything it integrates with:
-[https://affnaai.com/integrations](https://affnaai.com/integrations)
-
-**Q: Does it work for my industry?**
-Most likely yes. Explore the full list:
-[https://affnaai.com/industries](https://affnaai.com/industries)
